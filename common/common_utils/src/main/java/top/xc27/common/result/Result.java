@@ -48,6 +48,10 @@ public class Result<T> {
         return new Result<>(ResultCode.ERROR);
     }
 
+    public static <T> Result<T> fail(ResultCode resultCode) {
+        return new Result<>(resultCode.getCode(),resultCode.getMessage());
+    }
+
     public static <T> Result<T> fail(String message) {
         return new Result<>(ResultCode.ERROR,message);
     }

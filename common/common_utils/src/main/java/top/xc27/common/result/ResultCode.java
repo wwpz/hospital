@@ -18,7 +18,9 @@ public enum ResultCode {
     SERVER_ERROR(500, "服务器内部错误!"),
 
     /* 业务通用状态码 */
-    PARAMETER_EXCEPTION(10001, "参数校验异常!"),
+    PRIMARY_EXCEPTION(10001,"主键缺失!"),
+    PARAMETER_EXCEPTION(10002, "参数校验异常!"),
+    QUERYENTITY_EXCEPTION(10003, "没有查询到对应数据!"),
     ;
 
     private final Integer code;

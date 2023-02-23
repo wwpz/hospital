@@ -14,7 +14,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
+import top.xc27.common.exception.HospitalException;
 import top.xc27.common.result.Result;
+import top.xc27.common.result.ResultCode;
 import top.xc27.common.utils.MD5;
 import top.xc27.hosp.dao.HospitalSetDao;
 import top.xc27.hosp.service.HospitalSetService;
@@ -35,14 +37,14 @@ public class HospitalSetServiceImpl extends ServiceImpl<HospitalSetDao, Hospital
 
     @Override
     public Result<String> hospitalSetUpdate(HospitalSetEntity hospitalSet) {
-        Assert.notEmpty(String.valueOf(hospitalSet.getId()), "需要修改的id必传!");
+        Assert.notEmpty(String.valueOf(hospitalSet.getId()), ResultCode.PRIMARY_EXCEPTION.getMessage());
         baseMapper.updateById(hospitalSet);
         return Result.success();
     }
 
     @Override
     public Result<String> hospitalSetDelete(List<Long> ids) {
-        Assert.notEmpty(ids, "id参数不能为空!");
+        Assert.notEmpty(ids, ResultCode.PRIMARY_EXCEPTION.getMessage());
         baseMapper.deleteBatchIds(ids);
         return Result.success();
     }
@@ -61,7 +63,7 @@ public class HospitalSetServiceImpl extends ServiceImpl<HospitalSetDao, Hospital
     @Override
     public HospitalSetEntity hospitalSetSend(Long id) {
         HospitalSetEntity entity = baseMapper.selectById(id);
-        Assert.notNull(entity,"没有查询到对应数据!");
+        Assert.notNull(entity,ResultCode.QUERYENTITY_EXCEPTION.getMessage());
         HospitalSetEntity hospitalSetEntity = new HospitalSetEntity();
         hospitalSetEntity.setHoscode(entity.getHoscode());
         hospitalSetEntity.setSignKey(entity.getSignKey());
