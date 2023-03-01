@@ -3,6 +3,8 @@ package top.xc27.model.base;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -37,20 +39,19 @@ public class BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "其他参数")
     @TableField(exist = false)
-    @JsonIgnore
     private Map<String, Object> param = new HashMap<>();
 
     /**
      * 页数
      */
     @TableField(exist = false)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int page = 1;
     /**
      * 每页多少条
      */
     @TableField(exist = false)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int pageSize = 10;
 
     public <T> T getPage(BiFunction<Integer, Integer, T> constructor) {

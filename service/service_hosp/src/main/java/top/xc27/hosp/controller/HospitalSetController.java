@@ -89,4 +89,13 @@ public class HospitalSetController {
     public Result<HospitalSetEntity> hospitalSetSend(@PathVariable Long id){
         return Result.success(hospitalSetService.hospitalSetSend(id));
     }
+
+    /**
+     * 测试
+     */
+    @GetMapping("/test")
+    @ApiOperation(value = "hosp_医院设置管理Test")
+    public Result<HospitalSetEntity> hospitalTest(){
+        return Result.success();
+    }
 }
