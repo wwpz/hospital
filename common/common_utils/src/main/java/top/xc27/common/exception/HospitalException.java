@@ -32,6 +32,15 @@ public class HospitalException extends RuntimeException{
         this.code = resultCode.getCode();
     }
 
+    /**
+     * 接收自定义失败消息
+     * @param resultCodeEnum
+     */
+    public HospitalException(String message) {
+        super(message);
+        this.code = ResultCode.ERROR.getCode();
+    }
+
     @Override
     public String toString() {
         return "HospitalException{" +

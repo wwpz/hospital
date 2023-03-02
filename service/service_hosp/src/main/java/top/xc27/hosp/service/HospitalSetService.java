@@ -20,6 +20,8 @@ public interface HospitalSetService extends IService<HospitalSetEntity> {
 
     Result<String> hospitalSetUpdate(HospitalSetEntity hospitalSet);
 
+    Result<String> hospitalSetDeleteById(Long id);
+
     Result<String> hospitalSetDelete(List<Long> ids);
 
     IPage<HospitalSetEntity> queryPage(HospitalSetEntity hospitalSet);
@@ -27,5 +29,6 @@ public interface HospitalSetService extends IService<HospitalSetEntity> {
     HospitalSetEntity hospitalSetById(Long id);
 
     HospitalSetEntity hospitalSetSend(Long id);
+
 }
 

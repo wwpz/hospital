@@ -48,6 +48,15 @@ public class HospitalSetController {
     /**
      * 删除 hosp_医院设置管理
      */
+    @DeleteMapping("/deletes/{id}")
+    @ApiOperation(value = "hosp_医院设置管理删除接口")
+    public Result<String> hospitalSetDeleteById(@PathVariable Long id){
+        return hospitalSetService.hospitalSetDeleteById(id);
+    }
+
+    /**
+     * 删除 hosp_医院设置管理
+     */
     @DeleteMapping("/deletes")
     @ApiOperation(value = "hosp_医院设置管理删除接口")
     public Result<String> hospitalSetDelete(@RequestBody List<Long> ids){

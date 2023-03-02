@@ -1,6 +1,7 @@
 package top.xc27.hosp.service.impl;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.Sign;
@@ -29,6 +30,7 @@ public class HospitalSetServiceImpl extends ServiceImpl<HospitalSetDao, Hospital
 
     @Override
     public Result<String> saveHospitalSet(HospitalSetEntity hospitalSet) {
+        cheak(hospitalSet);
         hospitalSet.setSignKey(MD5.encrypt(new Random().toString()));
         baseMapper.insert(hospitalSet);
         return Result.success();
@@ -37,7 +39,25 @@ public class HospitalSetServiceImpl extends ServiceImpl<HospitalSetDao, Hospital
     @Override
     public Result<String> hospitalSetUpdate(HospitalSetEntity hospitalSet) {
         Assert.notEmpty(String.valueOf(hospitalSet.getId()), ResultCode.PRIMARY_EXCEPTION.getMessage());
+        cheak(hospitalSet);
         baseMapper.updateById(hospitalSet);
+        return Result.success();
+    }
+
+    private void cheak(HospitalSetEntity hospitalSet) {
+        HospitalSetEntity hospByCode = baseMapper.selectByHospByCode(hospitalSet.getHosCode());
+        HospitalSetEntity hospByName = baseMapper.selectByHospByName(hospitalSet.getHosName());
+        if(ObjectUtil.isNotEmpty(hospByCode) && ObjectUtil.notEqual(hospByCode.getId(),hospitalSet.getId())){
+            throw new HospitalException("当前医院编号已存在!");
+        } else if(ObjectUtil.isNotEmpty(hospByName) && ObjectUtil.notEqual(hospByName.getId(),hospitalSet.getId())){
+            throw new HospitalException("当前医院名称已存在!");
+        }
+    }
+
+    @Override
+    public Result<String> hospitalSetDeleteById(Long id) {
+        Assert.notNull(id, ResultCode.PRIMARY_EXCEPTION.getMessage());
+        baseMapper.deleteById(id);
         return Result.success();
     }
 
@@ -64,18 +84,18 @@ public class HospitalSetServiceImpl extends ServiceImpl<HospitalSetDao, Hospital
         HospitalSetEntity entity = baseMapper.selectById(id);
         Assert.notNull(entity,ResultCode.QUERYENTITY_EXCEPTION.getMessage());
         HospitalSetEntity hospitalSetEntity = new HospitalSetEntity();
-        hospitalSetEntity.setHoscode(entity.getHoscode());
+        hospitalSetEntity.setHosCode(entity.getHosCode());
         hospitalSetEntity.setSignKey(entity.getSignKey());
         return hospitalSetEntity;
     }
 
     private LambdaQueryWrapper<HospitalSetEntity> queryWrapper(HospitalSetEntity hospitalSet) {
         LambdaQueryWrapper<HospitalSetEntity> query = Wrappers.lambdaQuery();
-        if(StrUtil.isNotEmpty(hospitalSet.getHosname())){
-            query.like(HospitalSetEntity::getHosname,hospitalSet.getHosname());
+        if(StrUtil.isNotEmpty(hospitalSet.getHosName())){
+            query.like(HospitalSetEntity::getHosName,hospitalSet.getHosName());
         }
-        if(StrUtil.isNotEmpty(hospitalSet.getHoscode())){
-            query.eq(HospitalSetEntity::getHoscode,hospitalSet.getHoscode());
+        if(StrUtil.isNotEmpty(hospitalSet.getHosCode())){
+            query.like(HospitalSetEntity::getHosCode,hospitalSet.getHosCode());
         }
         return query;
     }

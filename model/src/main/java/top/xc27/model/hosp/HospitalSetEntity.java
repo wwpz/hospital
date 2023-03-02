@@ -29,12 +29,12 @@ public class HospitalSetEntity extends BaseEntity implements Serializable {
      * 医院名称
      */
     @ApiModelProperty(value = "医院名称")
-    private String hosname;
+    private String hosName;
     /**
      * 医院编号
      */
     @ApiModelProperty(value = "医院编号")
-    private String hoscode;
+    private String hosCode;
     /**
      * api基础路径
      */

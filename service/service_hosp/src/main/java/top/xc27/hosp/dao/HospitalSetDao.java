@@ -13,5 +13,8 @@ import top.xc27.model.hosp.HospitalSetEntity;
  */
 @Mapper
 public interface HospitalSetDao extends BaseMapper<HospitalSetEntity> {
-	
+
+    HospitalSetEntity selectByHospByCode(String hosCode);
+
+    HospitalSetEntity selectByHospByName(String hosName);
 }
