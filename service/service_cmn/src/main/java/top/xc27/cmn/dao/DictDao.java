@@ -1,11 +1,11 @@
 package top.xc27.cmn.dao;
 
-import top.xc27.cmn.entity.DictEntity;
+import top.xc27.model.dict.DictEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 组织架构表
+ * 医院字典管理
  * 
  * @author Pcling
  * @email lingcglib@163.com

@@ -2,12 +2,12 @@ package top.xc27.cmn.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import top.xc27.cmn.entity.DictEntity;
+import top.xc27.model.dict.DictEntity;
 
 import java.util.List;
 
 /**
- * 组织架构表
+ * 医院设置管理
  *
  * @author Pcling
  * @email lingcglib@163.com

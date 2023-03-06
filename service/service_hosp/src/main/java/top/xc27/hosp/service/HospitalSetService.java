@@ -8,7 +8,7 @@ import top.xc27.model.hosp.HospitalSetEntity;
 import java.util.List;
 
 /**
- * 医院设置表
+ * 医院设置管理
  *
  * @author Pcling
  * @email lingcglib@163.com

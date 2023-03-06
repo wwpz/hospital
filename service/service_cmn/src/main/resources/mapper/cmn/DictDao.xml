@@ -3,7 +3,7 @@
 
 <mapper namespace="top.xc27.cmn.dao.DictDao">
 
-    <resultMap type="top.xc27.cmn.entity.DictEntity" id="dictMap">
+    <resultMap type="top.xc27.model.dict.DictEntity" id="dictMap">
         <result property="id" column="id"/>
         <result property="parentId" column="parent_id"/>
         <result property="name" column="name"/>

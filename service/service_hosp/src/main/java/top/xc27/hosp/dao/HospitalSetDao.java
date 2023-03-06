@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import top.xc27.model.hosp.HospitalSetEntity;
 
 /**
- * 医院设置表
+ * 医院设置管理
  * 
  * @author Pcling
  * @email lingcglib@163.com

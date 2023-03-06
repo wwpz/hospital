@@ -5,7 +5,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import top.xc27.cmn.entity.DictEntity;
+import top.xc27.model.dict.DictEntity;
 import top.xc27.cmn.service.DictService;
 import top.xc27.common.result.Result;
 import top.xc27.common.result.ResultList;
@@ -13,7 +13,7 @@ import top.xc27.common.result.ResultList;
 import java.util.List;
 
 /**
- * 组织架构表
+ * 医院字典管理
  *
  * @author Pcling
  * @email lingcglib@163.com
@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/cmn/dict")
-@Api(value = "cmn_组织架构表", tags = {"cmn_组织架构表"})
+@Api(value = "cmn_医院字典管理", tags = {"cmn_医院字典管理"})
 public class DictController {
 
     @Autowired
@@ -32,8 +32,8 @@ public class DictController {
      */
     @GetMapping("/queryByParentId/{id}")
     @ApiOperation(value = "根据上级id获取子节点数据列表")
-    public ResultList<DictEntity> queryByParentId(@PathVariable Integer id){
-        return ResultList.success(dictService.queryByParentId(id));
+    public Result<List<DictEntity>> queryByParentId(@PathVariable Integer id){
+        return Result.success(dictService.queryByParentId(id));
     }
 
     /**

@@ -1,4 +1,4 @@
-package top.xc27.cmn.entity;
+package top.xc27.model.dict;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,7 +12,7 @@ import lombok.Data;
 import top.xc27.model.base.BaseEntity;
 
 /**
- * 组织架构表
+ * 医院字典管理
  *
  * @author Pcling
  * @email lingcglib@163.com
