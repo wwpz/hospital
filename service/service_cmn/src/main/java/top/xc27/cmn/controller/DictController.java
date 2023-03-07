@@ -10,6 +10,7 @@ import top.xc27.cmn.service.DictService;
 import top.xc27.common.result.Result;
 import top.xc27.common.result.ResultList;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -36,6 +37,11 @@ public class DictController {
         return Result.success(dictService.queryByParentId(id));
     }
 
+    @GetMapping("/export/dict")
+    @ApiOperation(value = "导出dict数据")
+    public void exportDict(HttpServletResponse response){
+        dictService.exportDict(response);
+    }
     /**
      * 新增 cmn_组织架构表
      */

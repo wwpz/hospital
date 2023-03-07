@@ -1,5 +1,7 @@
 package top.xc27.cmn.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.excel.EasyExcel;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -8,9 +10,15 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import top.xc27.cmn.dao.DictDao;
+import top.xc27.common.exception.HospitalException;
+import top.xc27.common.result.Result;
 import top.xc27.model.dict.DictEntity;
 import top.xc27.cmn.service.DictService;
+import top.xc27.vo.DictEeVo;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("dictService")
@@ -24,6 +32,21 @@ public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements
             dict.setHasChildren(isChild);
         }
         return entities;
+    }
+
+    @Override
+    public void exportDict(HttpServletResponse response) {
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = "dict";
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        List<DictEntity> dictEntities = baseMapper.selectList(null);
+        List<DictEeVo> dictEeVos = BeanUtil.copyToList(dictEntities, DictEeVo.class);
+        try {
+            EasyExcel.write(response.getOutputStream(), DictEeVo.class).sheet("dict").doWrite(dictEeVos);
+        } catch (IOException e) {
+            throw new HospitalException("导出异常!");
+        }
     }
 
     private boolean isChildren(Integer id) {
