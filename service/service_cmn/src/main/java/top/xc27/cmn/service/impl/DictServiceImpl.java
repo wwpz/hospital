@@ -2,6 +2,7 @@ package top.xc27.cmn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.excel.EasyExcel;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -25,6 +26,7 @@ import java.util.List;
 public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements DictService {
 
     @Override
+    @Cacheable(value = "dict",keyGenerator = "keyGenerator")
     public List<DictEntity> queryByParentId(Integer id) {
         List<DictEntity> entities = baseMapper.selectList(new LambdaQueryWrapper<DictEntity>().eq(DictEntity::getParentId, id));
         for (DictEntity dict : entities) {

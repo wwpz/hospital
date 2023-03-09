@@ -37,7 +37,7 @@ public class DictController {
         return Result.success(dictService.queryByParentId(id));
     }
 
-    @GetMapping("/export/dict")
+    @GetMapping("/export")
     @ApiOperation(value = "导出dict数据")
     public void exportDict(HttpServletResponse response){
         dictService.exportDict(response);
