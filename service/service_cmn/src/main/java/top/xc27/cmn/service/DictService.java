@@ -2,6 +2,7 @@ package top.xc27.cmn.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.web.multipart.MultipartFile;
 import top.xc27.common.result.Result;
 import top.xc27.model.dict.DictEntity;
 
@@ -23,5 +24,6 @@ public interface DictService extends IService<DictEntity> {
 
     void exportDict(HttpServletResponse response);
 
+    Result<String> importDict(MultipartFile file);
 }
 

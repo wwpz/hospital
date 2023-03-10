@@ -5,6 +5,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.multipart.MultipartFile;
 import top.xc27.model.dict.DictEntity;
 import top.xc27.cmn.service.DictService;
 import top.xc27.common.result.Result;
@@ -37,11 +38,26 @@ public class DictController {
         return Result.success(dictService.queryByParentId(id));
     }
 
+    /**
+     * Get导出dict数据
+     * @param response
+     */
     @GetMapping("/export")
     @ApiOperation(value = "导出dict数据")
     public void exportDict(HttpServletResponse response){
         dictService.exportDict(response);
     }
+
+    /**
+     * POST 导入dict数据
+     * @param response
+     */
+    @PostMapping("/import")
+    @ApiOperation(value = "导入dict数据")
+    public Result<String> importDict(MultipartFile file){
+        return dictService.importDict(file);
+    }
+
     /**
      * 新增 cmn_组织架构表
      */

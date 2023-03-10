@@ -10,9 +10,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
+import org.springframework.web.multipart.MultipartFile;
 import top.xc27.cmn.dao.DictDao;
+import top.xc27.cmn.listener.DictListener;
 import top.xc27.common.exception.HospitalException;
 import top.xc27.common.result.Result;
+import top.xc27.common.result.ResultCode;
 import top.xc27.model.dict.DictEntity;
 import top.xc27.cmn.service.DictService;
 import top.xc27.vo.DictEeVo;
@@ -38,7 +41,7 @@ public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements
 
     @Override
     public void exportDict(HttpServletResponse response) {
-        response.setContentType("application/vnd.ms-excel");
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setCharacterEncoding("utf-8");
         String fileName = "dict";
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
@@ -49,6 +52,16 @@ public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements
         } catch (IOException e) {
             throw new HospitalException("导出异常!");
         }
+    }
+
+    @Override
+    public Result<String> importDict(MultipartFile file) {
+        try {
+            EasyExcel.read(file.getInputStream(),DictEeVo.class,new DictListener(baseMapper)).sheet().doRead();
+        } catch (IOException e) {
+            throw new HospitalException(ResultCode.ERROR);
+        }
+        return Result.success();
     }
 
     private boolean isChildren(Integer id) {
