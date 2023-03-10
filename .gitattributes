@@ -3,5 +3,5 @@
 *.css linguist-language=java
 
 *.html linguist-language=java
-
+*.HTML linguist-language=java
 *.less linguist-language=java
