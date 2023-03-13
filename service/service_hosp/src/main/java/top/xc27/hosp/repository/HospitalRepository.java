@@ -6,4 +6,7 @@ import top.xc27.model.hosp.Hospital;
 import top.xc27.model.hosp.HospitalSetEntity;
 
 public interface HospitalRepository extends MongoRepository<Hospital,String> {
+
+    Hospital getHospitalByHoscode(String hoscode);
+
 }
