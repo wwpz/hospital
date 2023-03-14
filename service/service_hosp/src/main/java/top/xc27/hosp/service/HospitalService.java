@@ -11,4 +11,8 @@ public interface HospitalService {
     List<Hospital> getAllHosp();
 
     Result<String> saveHosp(Map<String, Object> map);
+
+    Hospital queryShow(Map<String, Object> map);
+
+    Result<String> saveDepartment(Map<String, Object> map);
 }
