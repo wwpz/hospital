@@ -1,6 +1,7 @@
 package top.xc27.cmn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.EasyExcel;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ import java.util.List;
 public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements DictService {
 
     @Override
-    @Cacheable(value = "dict",keyGenerator = "keyGenerator")
+    @Cacheable(value = "dict", keyGenerator = "keyGenerator")
     public List<DictEntity> queryByParentId(Integer id) {
         List<DictEntity> entities = baseMapper.selectList(new LambdaQueryWrapper<DictEntity>().eq(DictEntity::getParentId, id));
         for (DictEntity dict : entities) {
@@ -57,11 +58,26 @@ public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements
     @Override
     public Result<String> importDict(MultipartFile file) {
         try {
-            EasyExcel.read(file.getInputStream(),DictEeVo.class,new DictListener(baseMapper)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), DictEeVo.class, new DictListener(baseMapper)).sheet().doRead();
         } catch (IOException e) {
             throw new HospitalException(ResultCode.ERROR);
         }
         return Result.success();
+    }
+
+    @Override
+    public DictEntity getDictByCodeAndValue(DictEntity dictEntity) {
+        DictEntity dict = new DictEntity();
+        if (StrUtil.isEmpty(dictEntity.getDictCode())) {
+            dict = baseMapper.selectOne(new LambdaQueryWrapper<DictEntity>().eq(DictEntity::getValue, dictEntity.getValue()));
+        } else {
+            dict = baseMapper.selectOne(new LambdaQueryWrapper<DictEntity>()
+                    .eq(DictEntity::getDictCode,dictEntity.getDictCode()));
+            dict = baseMapper.selectOne(new LambdaQueryWrapper<DictEntity>()
+                    .eq(DictEntity::getParentId,dict.getId())
+                    .eq(DictEntity::getValue,dictEntity.getValue()));
+        }
+        return dict;
     }
 
     private boolean isChildren(Integer id) {
@@ -72,7 +88,7 @@ public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements
     @Override
     public IPage<DictEntity> queryPage(DictEntity dict) {
         LambdaQueryWrapper<DictEntity> wrapper = queryWrapper(dict);
-        return baseMapper.selectPage(dict.getPage(Page::new),wrapper);
+        return baseMapper.selectPage(dict.getPage(Page::new), wrapper);
     }
 
     private LambdaQueryWrapper<DictEntity> queryWrapper(DictEntity dict) {

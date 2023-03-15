@@ -1,5 +1,6 @@
 package top.xc27.cmn.controller;
 
+import cn.hutool.core.lang.Dict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
@@ -87,6 +88,12 @@ public class DictController {
     public Result<String> dictDelete(@RequestBody List<Long> ids){
 //		dictService.dictDelete(ids);
         return Result.success();
+    }
+
+    @PostMapping("/getDict")
+    @ApiOperation(value = "根据dict code 和 value查询")
+    public DictEntity getDict(@RequestBody DictEntity dictEntity){
+        return dictService.getDictByCodeAndValue(dictEntity);
     }
 
     /**

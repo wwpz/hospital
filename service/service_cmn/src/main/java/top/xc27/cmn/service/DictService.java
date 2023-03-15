@@ -25,5 +25,7 @@ public interface DictService extends IService<DictEntity> {
     void exportDict(HttpServletResponse response);
 
     Result<String> importDict(MultipartFile file);
+
+    DictEntity getDictByCodeAndValue(DictEntity dictEntity);
 }
 
