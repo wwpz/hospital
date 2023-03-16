@@ -110,6 +110,17 @@ public class HospitalServiceImpl implements HospitalService {
         return Result.success(pages);
     }
 
+    @Override
+    public Result<String> updataHosp(HospitalQueryVo hospitalQueryVo) {
+        //根据id查询医院信息
+        Hospital hospital = hospitalRepository.findById(hospitalQueryVo.getId()).get();
+        //设置修改的值
+        hospital.setStatus(hospitalQueryVo.getStatus());
+        hospital.setUpdateTime(new Date());
+        hospitalRepository.save(hospital);
+        return Result.success();
+    }
+
     private String cheak(Map<String, Object> map) {
         String sign = (String) map.get("sign");
         String hoscode = (String) map.get("hoscode");

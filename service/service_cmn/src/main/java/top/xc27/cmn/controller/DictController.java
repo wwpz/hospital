@@ -1,6 +1,5 @@
 package top.xc27.cmn.controller;
 
-import cn.hutool.core.lang.Dict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
@@ -94,6 +93,13 @@ public class DictController {
     @ApiOperation(value = "根据dict code 和 value查询")
     public DictEntity getDict(@RequestBody DictEntity dictEntity){
         return dictService.getDictByCodeAndValue(dictEntity);
+    }
+
+    @GetMapping("/getDictByDictCode/{dictCode}")
+    @ApiOperation(value = "根据dict code查询Dict")
+    public Result<List<DictEntity>> getDictByDictCode(@PathVariable String dictCode){
+        List<DictEntity> dictByDictCode = dictService.getDictByDictCode(dictCode);
+        return Result.success(dictByDictCode);
     }
 
     /**

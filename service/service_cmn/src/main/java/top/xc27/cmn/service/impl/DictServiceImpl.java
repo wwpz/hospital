@@ -68,16 +68,26 @@ public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements
     @Override
     public DictEntity getDictByCodeAndValue(DictEntity dictEntity) {
         DictEntity dict = new DictEntity();
-        if (StrUtil.isEmpty(dictEntity.getDictCode())) {
+        if (StrUtil.isEmpty(dictEntity.getDictCode()) && null != dictEntity.getValue()) {
             dict = baseMapper.selectOne(new LambdaQueryWrapper<DictEntity>().eq(DictEntity::getValue, dictEntity.getValue()));
-        } else {
+        } else if(StrUtil.isNotEmpty(dictEntity.getDictCode()) && null != dictEntity.getValue()){
             dict = baseMapper.selectOne(new LambdaQueryWrapper<DictEntity>()
                     .eq(DictEntity::getDictCode,dictEntity.getDictCode()));
             dict = baseMapper.selectOne(new LambdaQueryWrapper<DictEntity>()
                     .eq(DictEntity::getParentId,dict.getId())
                     .eq(DictEntity::getValue,dictEntity.getValue()));
+        }else if(StrUtil.isNotEmpty(dictEntity.getDictCode())){
+            dict = baseMapper.selectOne(new LambdaQueryWrapper<DictEntity>().eq(DictEntity::getDictCode, dictEntity.getDictCode()));
         }
         return dict;
+    }
+
+    @Override
+    public List<DictEntity> getDictByDictCode(String dictCode) {
+        DictEntity dict = new DictEntity();
+        dict.setDictCode(dictCode);
+        DictEntity dictByCodeAndValue = getDictByCodeAndValue(dict);
+        return queryByParentId(dictByCodeAndValue.getId());
     }
 
     private boolean isChildren(Integer id) {
@@ -93,7 +103,9 @@ public class DictServiceImpl extends ServiceImpl<DictDao, DictEntity> implements
 
     private LambdaQueryWrapper<DictEntity> queryWrapper(DictEntity dict) {
         LambdaQueryWrapper<DictEntity> query = Wrappers.lambdaQuery();
-
+        if(StrUtil.isNotEmpty(dict.getDictCode())){
+            query.eq(DictEntity::getDictCode,dict.getDictCode());
+        }
         return query;
     }
 

@@ -1,5 +1,6 @@
 package top.xc27.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,6 +13,9 @@ import java.io.Serializable;
 public class HospitalQueryVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @TableField(exist = false)
+    private String id;
 
     @ApiModelProperty(value = "医院编号")
     private String hoscode;

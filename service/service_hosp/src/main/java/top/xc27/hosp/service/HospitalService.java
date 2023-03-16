@@ -18,4 +18,6 @@ public interface HospitalService {
     Result<String> saveDepartment(Map<String, Object> map);
 
     Result queryPage(HospitalQueryVo hospitalQueryVo);
+
+    Result<String> updataHosp(HospitalQueryVo hospitalQueryVo);
 }

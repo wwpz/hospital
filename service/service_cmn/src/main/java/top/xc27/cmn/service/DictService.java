@@ -27,5 +27,8 @@ public interface DictService extends IService<DictEntity> {
     Result<String> importDict(MultipartFile file);
 
     DictEntity getDictByCodeAndValue(DictEntity dictEntity);
+
+    List<DictEntity> getDictByDictCode(String dictCode);
+
 }
 

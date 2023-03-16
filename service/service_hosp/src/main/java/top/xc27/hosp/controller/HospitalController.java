@@ -3,13 +3,11 @@ package top.xc27.hosp.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.xc27.common.result.Result;
 import top.xc27.common.result.ResultList;
 import top.xc27.hosp.service.HospitalService;
+import top.xc27.model.hosp.Hospital;
 import top.xc27.vo.HospitalQueryVo;
 
 /**
@@ -34,5 +32,12 @@ public class HospitalController {
     @ApiOperation(value = "hosp_医院分页接口")
     public Result queryPage(@RequestBody HospitalQueryVo hospitalQueryVo){
         return Result.success(hospitalService.queryPage(hospitalQueryVo));
+    }
+
+
+    @PutMapping("updata")
+    @ApiOperation(value = "hosp_医院分页接口")
+    public Result<String> updataHosp(@RequestBody HospitalQueryVo hospitalQueryVo){
+        return hospitalService.updataHosp(hospitalQueryVo);
     }
 }
