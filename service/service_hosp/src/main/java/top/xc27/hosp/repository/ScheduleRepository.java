@@ -12,4 +12,5 @@ public interface ScheduleRepository extends MongoRepository<Schedule,String> {
     //根据医院编号 和 排班编号查询
     Schedule getScheduleByHoscodeAndHosScheduleId(String hoscode, String hosScheduleId);
 
+    List<Schedule> findScheduleByHoscodeAndDepcode(String hoscode, String depcode);
 }

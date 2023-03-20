@@ -20,4 +20,8 @@ public interface HospitalService {
     Result queryPage(HospitalQueryVo hospitalQueryVo);
 
     Result<String> updataHosp(HospitalQueryVo hospitalQueryVo);
+
+    Map<String, Object> getHospById(String id);
+
+    String getHospName(String hoscode);
 }

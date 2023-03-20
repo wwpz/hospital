@@ -3,7 +3,9 @@ package top.xc27.hosp.service;
 import org.springframework.data.domain.*;
 import top.xc27.model.hosp.Department;
 import top.xc27.vo.DepartmentQueryVo;
+import top.xc27.vo.DepartmentVo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface DepartmentService {
@@ -15,4 +17,8 @@ public interface DepartmentService {
 
     //删除科室接口
     void remove(String hoscode, String depcode);
+
+    List<DepartmentVo> findDeptTree(String hoscode);
+
+    String getDepName(String hoscode, String depcode);
 }

@@ -5,6 +5,7 @@ import top.xc27.common.result.Result;
 import top.xc27.model.hosp.Schedule;
 import top.xc27.vo.ScheduleQueryVo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ScheduleService {
@@ -18,4 +19,7 @@ public interface ScheduleService {
     //删除排班
     Result<String> remove(Map<String, Object> paramMap);
 
+    Map<String, Object> getRuleSchedule(ScheduleQueryVo scheduleQueryVo);
+
+    List<Schedule> getDetailSchedule(ScheduleQueryVo scheduleQueryVo);
 }

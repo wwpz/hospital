@@ -38,6 +38,7 @@
         <easyexcel.version>3.1.1</easyexcel.version>
         <spring-cloud.version>2020.0.6</spring-cloud.version>
         <spring-cloud-alibaba-dependencies.version>2021.1</spring-cloud-alibaba-dependencies.version>
+        <jodatime.version>2.10.1</jodatime.version>
     </properties>
 
     <dependencyManagement>
@@ -95,6 +96,12 @@
                 <version>${spring-cloud-alibaba-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!--日期时间工具-->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${jodatime.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

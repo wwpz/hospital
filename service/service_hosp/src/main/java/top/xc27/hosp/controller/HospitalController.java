@@ -10,6 +10,8 @@ import top.xc27.hosp.service.HospitalService;
 import top.xc27.model.hosp.Hospital;
 import top.xc27.vo.HospitalQueryVo;
 
+import java.util.Map;
+
 /**
  * 医院管理
  *
@@ -39,5 +41,13 @@ public class HospitalController {
     @ApiOperation(value = "hosp_医院分页接口")
     public Result<String> updataHosp(@RequestBody HospitalQueryVo hospitalQueryVo){
         return hospitalService.updataHosp(hospitalQueryVo);
+    }
+
+    //医院详情信息
+    @ApiOperation(value = "医院详情信息")
+    @GetMapping("showHospDetail/{id}")
+    public Result showHospDetail(@PathVariable String id) {
+        Map<String, Object> map = hospitalService.getHospById(id);
+        return Result.success(map);
     }
 }
