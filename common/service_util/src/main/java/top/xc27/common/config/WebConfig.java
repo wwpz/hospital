@@ -22,11 +22,11 @@ public class WebConfig extends WebMvcConfigurationSupport {
         converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
     }
 
-    // 解决全局跨域问题
-    @Override
-    protected void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowCredentials(false).allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE").allowedOrigins("*");
-    }
+//    // 解决全局跨域问题
+//    @Override
+//    protected void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**").allowCredentials(false).allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE").allowedOrigins("*");
+//    }
 
     // 配置拦截器放行Swagger2
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
