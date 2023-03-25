@@ -145,6 +145,11 @@ public class HospitalServiceImpl implements HospitalService {
         return null;
     }
 
+    @Override
+    public List<Hospital> findByHosname(String hosname) {
+        return hospitalRepository.findHospitalByHosnameLike(hosname);
+    }
+
     private String cheak(Map<String, Object> map) {
         String sign = (String) map.get("sign");
         String hoscode = (String) map.get("hoscode");
